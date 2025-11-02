@@ -31,3 +31,6 @@ Don't think of a Linked List as books in a library or boxes lined up side-by-sid
 **Conclusion:**
 
 A Linked List is a wonderful data structure for situations where you constantly need to add and delete data, but where random access to the data is not strictly necessary.
+
+**Sources:**
+Gemini

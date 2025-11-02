@@ -86,3 +86,6 @@ List Content: 30 -> 20 -> 10 -> nil
 * **Pointer:** The *Node structure is a pointer in Go. This pointer allows the list to be flexible; the nodes do not need to be side-by-side in memory, they only need to know each other's address.
 * **list.Head:** Knowing only the starting point of the list is enough to manage the list.
 * **newNode.Next** = list.Head: This line is the magic of Linked Lists. The new node is linked to the start of the old list, ensuring the rest of the list is not lost.
+
+**Sources:**
+Gemini
