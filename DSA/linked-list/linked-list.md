@@ -32,5 +32,43 @@ Don't think of a Linked List as books in a library or boxes lined up side-by-sid
 
 A Linked List is a wonderful data structure for situations where you constantly need to add and delete data, but where random access to the data is not strictly necessary.
 
+# When to Use Linked Lists in Go (Despite Slices)
+
+In most cases in Go, using the built-in `array` or the more flexible `slice` is faster and more practical. This is primarily because Go's `slice` structure is highly optimized.
+
+However, there are scenarios in daily life (and software development) where using a **Linked List** becomes logical or even necessary, despite Go's speed.
+
+---
+
+## 1. Continuous Insertion/Deletion at the Start or Middle (Queue/Stack)
+
+This is the biggest advantage of Linked Lists. Inserting or deleting an element from the middle or beginning of a slice requires shifting all subsequent elements, which is a very slow operation (`O(n)`).
+
+**Daily Scenario:** Consider a user's email inbox. New emails constantly arrive (inserted at the head), and old emails are continuously deleted.
+
+**Why a Linked List is Logical:** In a Linked List, changing the pointer at the head of the list is done instantly without having to shift all the other elements (`O(1)`). This makes a huge difference in speed for large lists.
+
+## 2. Avoiding Constant Resizing Under Heavy Data Loads
+
+When slices exceed their capacity, Go allocates a larger underlying array and copies the old data to the new location. This consumes a significant amount of memory and CPU power instantly.
+
+**Daily Scenario:** Managing a server's real-time incoming connections or its message queue.
+
+**Why a Linked List is Logical:** A Linked List only uses the memory it needs and does not have to copy the entire structure when its capacity is exceeded. Since each element is allocated separately, memory usage is more consistent and predictable.
+
+## 3. Predictable Performance in Real-Time Applications
+
+The resizing operation of a slice in Go can cause brief, unpredictable stalls (latency spikes).
+
+**Daily Scenario:** A gaming server, a stock market tracking application, or a real-time streaming application.
+
+**Why a Linked List is Logical:** The processing time for Linked List operations (insertion/deletion) is almost constant (`O(1)`), independent of the list's size. This makes performance more predictable and reliable in critical systems.
+
+---
+
+### Important Note
+
+In Go, the standard library already provides a built-in implementation for a **doubly linked list** within the **`container/list`** package. In a real project, it is generally preferred to use this package rather than writing a Linked List from scratch.
+
 **Sources:**
 Gemini
