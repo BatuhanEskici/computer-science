@@ -72,3 +72,6 @@ If you ask yourself the following question when facing a programming problem:
 > "I need to access a piece of data **instantly** by its name (ID/code), regardless of where it is located in the list."
 
 The answer is almost always a **Hash Map**. Instead of traversing the entire list from start to finish (as in a Linked List or Slice), the Hash Map can provide you with the direct address of that data.
+
+**Sources:**
+Gemini

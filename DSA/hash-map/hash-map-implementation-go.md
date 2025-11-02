@@ -32,3 +32,6 @@ func main() {
     fmt.Println("Ali was deleted. Current status of the phone book:", phoneBook)
 }
 ```
+
+**Sources:**
+Gemini
