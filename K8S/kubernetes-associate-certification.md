@@ -63,13 +63,13 @@ These techniques enable loosely coupled systems that are resilient, manageable, 
 
 Cloud Native Applications harness the power of the cloud to provide increased resilience, agility, operability, and observability. Let's dive a bit deeper into these characteristics.
 
-- Resiliency: Resilient applications are designed to withstand failures and continue to function or recover quickly. They typically make use of patterns such as redundancy, failover, and graceful degradation. Self-healing, where systems automatically detect and recover from failure, is a key aspect of resilient cloud-native applications. Kubernetes, for instance, has a built-in self-healing mechanism where it maintains a desired number of pod replicas and replaces failed instances.
+- _Resiliency:_ Resilient applications are designed to withstand failures and continue to function or recover quickly. They typically make use of patterns such as redundancy, failover, and graceful degradation. Self-healing, where systems automatically detect and recover from failure, is a key aspect of resilient cloud-native applications. Kubernetes, for instance, has a built-in self-healing mechanism where it maintains a desired number of pod replicas and replaces failed instances.
 
-- Agility: Agility in the context of cloud-native applications refers to the ability to quickly build, modify, and deploy applications. Agile practices such as microservices and continuous delivery pipelines, backed by automation, promote rapid iteration and responsiveness to change.
+- _Agility:_ Agility in the context of cloud-native applications refers to the ability to quickly build, modify, and deploy applications. Agile practices such as microservices and continuous delivery pipelines, backed by automation, promote rapid iteration and responsiveness to change.
 
-- Operability: Operability encompasses the ease of deploying, running, and managing applications. Cloud-native applications are designed to be easily monitored, configured, and maintained. They typically leverage automation and Infrastructure as Code (IaC) tools like Terraform to streamline operations and minimize toil.
+- _Operability:_ Operability encompasses the ease of deploying, running, and managing applications. Cloud-native applications are designed to be easily monitored, configured, and maintained. They typically leverage automation and Infrastructure as Code (IaC) tools like Terraform to streamline operations and minimize toil.
 
-- Observability: Observability is the ability to understand the internal state of your system based on the outputs it generates. It's a critical component in diagnosing issues and understanding how an application behaves in the wild. Logging, monitoring, and tracing (collectively known as the 'three pillars of observability') are vital practices to understand the state and performance of cloud-native applications.
+- _Observability:_ Observability is the ability to understand the internal state of your system based on the outputs it generates. It's a critical component in diagnosing issues and understanding how an application behaves in the wild. Logging, monitoring, and tracing (collectively known as the 'three pillars of observability') are vital practices to understand the state and performance of cloud-native applications.
 
 _It is important as part of your studies especially if you’re planning on taking the KCNA exam to remember these characteristics! A friendly anagram for this is “RAOO: Racoons are Often Observant” - Raccoons Are Often Observant = Resiliency, Agility, Operability, Observability_
 
@@ -83,23 +83,23 @@ Kubernetes is designed with self-healing capabilities that help maintain the hea
 
 Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you.
 
-- Terraform: Defines your cloud infrastructure, such as VMs, networks, and databases, as code (IaC). It performs provisioning, declaring the desired end state of the infrastructure and figuring out how to build it. It can manage multiple cloud providers (AWS, Azure, GCP, etc.) with a single configuration. It operates in the pre-cluster stage by creating the Kubernetes cluster itself (the underlying VMs, networking, and Load Balancers) in the cloud.
+- _Terraform:_ Defines your cloud infrastructure, such as VMs, networks, and databases, as code (IaC). It performs provisioning, declaring the desired end state of the infrastructure and figuring out how to build it. It can manage multiple cloud providers (AWS, Azure, GCP, etc.) with a single configuration. It operates in the pre-cluster stage by creating the Kubernetes cluster itself (the underlying VMs, networking, and Load Balancers) in the cloud.
 
-- Ansible: An open-source automation tool used for managing software and settings on servers and nodes. It performs configuration using simple YAML Playbooks to define tasks like installing software or managing services. It operates agentless by connecting over standard SSH. It is used in the intra/extra-cluster stage to prepare Kubernetes nodes (installing necessary binaries) or to deploy applications and configurations onto a running cluster.
+- _Ansible:_ An open-source automation tool used for managing software and settings on servers and nodes. It performs configuration using simple YAML Playbooks to define tasks like installing software or managing services. It operates agentless by connecting over standard SSH. It is used in the intra/extra-cluster stage to prepare Kubernetes nodes (installing necessary binaries) or to deploy applications and configurations onto a running cluster.
 
-- Knative: A platform built on top of Kubernetes that simplifies the creation and running of serverless applications. Its primary function is providing intelligent autoscaling and event management capabilities. The Serving component scales applications based on demand, often scaling them down to zero when idle. The Eventing component allows applications to communicate asynchronously using events, enabling event-driven architectures within the cluster.
+- _Knative:_ A platform built on top of Kubernetes that simplifies the creation and running of serverless applications. Its primary function is providing intelligent autoscaling and event management capabilities. The Serving component scales applications based on demand, often scaling them down to zero when idle. The Eventing component allows applications to communicate asynchronously using events, enabling event-driven architectures within the cluster.
 
 #### Autoscaling
 
-- Reactive Autoscaling: Scales resources immediately after a metric threshold (like CPU usage or latency) is breached. It’s effective for sudden, unexpected spikes but always responds after the event starts.
+- _Reactive Autoscaling:_ Scales resources immediately after a metric threshold (like CPU usage or latency) is breached. It’s effective for sudden, unexpected spikes but always responds after the event starts.
 
-- Scheduled Autoscaling: Scales resources based on time and date (e.g., scale up every Monday at 8 AM for the business week peak, or scale down every night at 11 PM). This handles predictable, routine traffic patterns.
+- _Scheduled Autoscaling:_ Scales resources based on time and date (e.g., scale up every Monday at 8 AM for the business week peak, or scale down every night at 11 PM). This handles predictable, routine traffic patterns.
 
-- Predictive Autoscaling: Uses historical data and machine learning to forecast future load requirements. It scales resources before the traffic spike hits, minimizing performance lag.
+- _Predictive Autoscaling:_ Uses historical data and machine learning to forecast future load requirements. It scales resources before the traffic spike hits, minimizing performance lag.
 
-- Vertical Autoscaling: Scales resources by changing the capacity of the current machine (e.g., increasing the RAM or CPU cores of an existing virtual machine). This is also known as "scaling up" or "scaling down."
+- _Vertical Autoscaling:_ Scales resources by changing the capacity of the current machine (e.g., increasing the RAM or CPU cores of an existing virtual machine). This is also known as "scaling up" or "scaling down."
 
-- Horizontal Autoscaling: Scales resources by adding or removing instances (e.g., adding more Pods or virtual machines). This is also known as "scaling out" or "scaling in."
+- _Horizontal Autoscaling:_ Scales resources by adding or removing instances (e.g., adding more Pods or virtual machines). This is also known as "scaling out" or "scaling in."
 
 ![k8s-autoscaler](./images/k8s-autoscaler.png)
 
@@ -133,37 +133,37 @@ You define a ScaledObject in Kubernetes. Inside it, you set:
 
 Serverless refers to using Kubernetes as the underlying infrastructure to run serverless workloads. It enables developers to execute code without managing the Kubernetes cluster operations, scaling, or resource provisioning for individual functions or services.
 
-- Abstraction: The user only defines their code (function or service) and required resources (like memory). They don't interact with Kubernetes primitives like Pods, Deployments, or Services.
+- _Abstraction:_ The user only defines their code (function or service) and required resources (like memory). They don't interact with Kubernetes primitives like Pods, Deployments, or Services.
 
-- Automatic Scaling to Zero: The platform automatically scales the application based on incoming traffic. When traffic stops, the service scales down to zero running instances, conserving resources and cost.
+- _Automatic Scaling to Zero:_ The platform automatically scales the application based on incoming traffic. When traffic stops, the service scales down to zero running instances, conserving resources and cost.
 
-- Event-Driven: Applications are often triggered by events (e.g., messages on a queue, HTTP requests) rather than running continuously.
+- _Event-Driven:_ Applications are often triggered by events (e.g., messages on a queue, HTTP requests) rather than running continuously.
 
-- Underlying Technology: It is typically implemented using projects built on top of Kubernetes, such as:
+- _Underlying Technology:_ It is typically implemented using projects built on top of Kubernetes, such as:
 
-- Knative: A leading framework that provides middleware components for building, deploying, and managing modern serverless workloads on Kubernetes.
+- _Knative:_ A leading framework that provides middleware components for building, deploying, and managing modern serverless workloads on Kubernetes.
 
-- KEDA (Kubernetes Event-driven Autoscaling): Allows Kubernetes workloads to be scaled based on external metrics (like a Kafka queue depth) rather than just CPU usage.
+- _KEDA (Kubernetes Event-driven Autoscaling):_ Allows Kubernetes workloads to be scaled based on external metrics (like a Kafka queue depth) rather than just CPU usage.
 
 #### Serverless Concepts
 
-- AWS Lambda: a proprietary Function-as-a-Service (FaaS) offering from Amazon Web Services (AWS) that runs code in response to events without requiring you to manage servers. It represents the original public cloud serverless model.
+- _AWS Lambda:_ a proprietary Function-as-a-Service (FaaS) offering from Amazon Web Services (AWS) that runs code in response to events without requiring you to manage servers. It represents the original public cloud serverless model.
 
-- Knative: a Kubernetes-native platform that extends K8s to build, deploy, and manage serverless workloads. It provides components for automatic scaling (down to zero) and eventing, effectively turning any Kubernetes cluster into a FaaS platform.
+- _Knative:_ a Kubernetes-native platform that extends K8s to build, deploy, and manage serverless workloads. It provides components for automatic scaling (down to zero) and eventing, effectively turning any Kubernetes cluster into a FaaS platform.
 
-- OpenFaaS: an open-source framework for building and deploying serverless functions on Kubernetes (or other platforms). It focuses on simplicity and ease of use, allowing developers to package existing code and containers as serverless functions.
+- _OpenFaaS:_ an open-source framework for building and deploying serverless functions on Kubernetes (or other platforms). It focuses on simplicity and ease of use, allowing developers to package existing code and containers as serverless functions.
 
-- CloudEvents: a standardized specification for describing event data in a common format. It ensures consistency across different serverless platforms (like Knative and FaaS providers) and communication protocols, enabling better interoperability in event-driven architectures.
+- _CloudEvents:_ a standardized specification for describing event data in a common format. It ensures consistency across different serverless platforms (like Knative and FaaS providers) and communication protocols, enabling better interoperability in event-driven architectures.
 
 ### Key Pillars of Cloud Native Architecture
 
-- Microservices Architecture: Microservices architecture involves breaking down the application into loosely coupled, independently deployable components, each focusing on a single responsibility. This design enables agility, scalability, and resilience as each microservice can be developed, scaled, and managed independently.
+- _Microservices Architecture:_ Microservices architecture involves breaking down the application into loosely coupled, independently deployable components, each focusing on a single responsibility. This design enables agility, scalability, and resilience as each microservice can be developed, scaled, and managed independently.
 
-- Containerisation: Containerisation involves encapsulating an application with its dependencies into a container, which can run uniformly across different environments. It facilitates isolation, consistency, and efficiency, making applications easier to build, deploy, and manage.
+- _Containerisation:_ Containerisation involves encapsulating an application with its dependencies into a container, which can run uniformly across different environments. It facilitates isolation, consistency, and efficiency, making applications easier to build, deploy, and manage.
 
-- DevOps: DevOps is a collaborative approach that combines software development (Dev) and IT operations (Ops) to enhance the efficiency, reliability, and speed of software delivery. By fostering a culture of excellence, DevOps emphasises automation, monitoring, and collaboration across development and operations teams.
+- _DevOps:_ DevOps is a collaborative approach that combines software development (Dev) and IT operations (Ops) to enhance the efficiency, reliability, and speed of software delivery. By fostering a culture of excellence, DevOps emphasises automation, monitoring, and collaboration across development and operations teams.
 
-- Continuous Delivery (CD): Continuous Delivery is a practice where code changes are automatically built, tested, and prepared for a release to production. CD accelerates the release cycle, enhances productivity, and reduces the risk, complexity, and downtime of application deployment.
+- _Continuous Delivery (CD):_ Continuous Delivery is a practice where code changes are automatically built, tested, and prepared for a release to production. CD accelerates the release cycle, enhances productivity, and reduces the risk, complexity, and downtime of application deployment.
 
 In essence, building cloud-native applications is a strategy that promotes resilience, agility, operability, and observability by leveraging modern technological practices. With a clear understanding of these characteristics and key pillars, organisations can fully exploit the advantages of cloud-native architectures.
 
@@ -185,11 +185,11 @@ https://www.cncf.io/projects/
 
 **Cloud Native Terminology Acronyms used in the Cloud Native Community**
 
-- TOC: Technical Oversight Committee
+- _TOC:_ Technical Oversight Committee
 
-- SIG: Special Interest Groups
+- _SIG:_ Special Interest Groups
 
-- TAG: Technical Advisory Groups
+- _TAG:_ Technical Advisory Groups
 
 **TAG: Technical Advisory Groups**
 
@@ -203,29 +203,29 @@ https://www.cncf.io/projects/
 
 ### Cloud Native Personas
 
-- DevOps: Automates and maintains the CI/CD pipelines that deploy code into the cluster and manages the core configuration tools like Helm and ArgoCD, bridging the gap between development and operations.
+- _DevOps:_ Automates and maintains the CI/CD pipelines that deploy code into the cluster and manages the core configuration tools like Helm and ArgoCD, bridging the gap between development and operations.
 
-- Site Reliability Engineer (SRE): Focuses on the reliability, availability, and performance of production services. They define SLOs/SLIs and use automation and engineering principles to minimize manual toil and ensure the cluster handles failures gracefully.
+- _Site Reliability Engineer (SRE):_ Focuses on the reliability, availability, and performance of production services. They define SLOs/SLIs and use automation and engineering principles to minimize manual toil and ensure the cluster handles failures gracefully.
 
-- CloudOps Engineer: Manages the underlying cloud infrastructure (AWS, Azure, GCP) hosting the Kubernetes cluster, optimizing cloud spending, networking (VPCs), and infrastructure-level security external to the cluster itself.
+- _CloudOps Engineer:_ Manages the underlying cloud infrastructure (AWS, Azure, GCP) hosting the Kubernetes cluster, optimizing cloud spending, networking (VPCs), and infrastructure-level security external to the cluster itself.
 
-- Security Engineer: Designs and enforces security policies for the K8s environment, handling network segregation, access control (RBAC), auditing, and vulnerability scanning for container images and application secrets.
+- _Security Engineer:_ Designs and enforces security policies for the K8s environment, handling network segregation, access control (RBAC), auditing, and vulnerability scanning for container images and application secrets.
 
-- DevSecOps Engineer: Integrates security practices directly into the automated CI/CD pipeline and deployment lifecycle, ensuring security testing and vulnerability checks happen continuously and automatically before code hits the cluster.
+- _DevSecOps Engineer:_ Integrates security practices directly into the automated CI/CD pipeline and deployment lifecycle, ensuring security testing and vulnerability checks happen continuously and automatically before code hits the cluster.
 
-- Full Stack Developer: Builds and maintains all layers of a feature, from the API running in a Pod to the front-end interface, focusing on application logic, features, and performance within the containerized environment.
+- _Full Stack Developer:_ Builds and maintains all layers of a feature, from the API running in a Pod to the front-end interface, focusing on application logic, features, and performance within the containerized environment.
 
-- Cloud Architect: Designs the high-level, long-term strategy for the entire cloud ecosystem, selecting the optimal services (managed K8s vs. serverless), defining the networking blueprint, and ensuring the architecture meets business needs.
+- _Cloud Architect:_ Designs the high-level, long-term strategy for the entire cloud ecosystem, selecting the optimal services (managed K8s vs. serverless), defining the networking blueprint, and ensuring the architecture meets business needs.
 
-- Data Engineer: Builds, manages, and optimizes the data pipelines and storage infrastructure (e.g., distributed databases, Kafka clusters) often run inside K8s, ensuring data is clean, reliable, and available for consumption.
+- _Data Engineer:_ Builds, manages, and optimizes the data pipelines and storage infrastructure (e.g., distributed databases, Kafka clusters) often run inside K8s, ensuring data is clean, reliable, and available for consumption.
 
-- FinOps Engineer: Manages cloud financial accountability and efficiency, monitoring Kubernetes resource utilization, optimizing resource requests/limits, and driving engineering decisions to reduce cloud spending.
+- _FinOps Engineer:_ Manages cloud financial accountability and efficiency, monitoring Kubernetes resource utilization, optimizing resource requests/limits, and driving engineering decisions to reduce cloud spending.
 
-- Machine Learning Engineer: Deploys and manages ML models as scalable services (often using specialized K8s operators like Kubeflow), ensuring the model inference endpoints are highly available and properly resource-allocated.
+- _Machine Learning Engineer:_ Deploys and manages ML models as scalable services (often using specialized K8s operators like Kubeflow), ensuring the model inference endpoints are highly available and properly resource-allocated.
 
-- Data Scientist: Focuses on analyzing data, building predictive models, and developing statistical insights. They typically consume data prepared by Data Engineers and rely on the ML Engineer to deploy their finalized models.
+- _Data Scientist:_ Focuses on analyzing data, building predictive models, and developing statistical insights. They typically consume data prepared by Data Engineers and rely on the ML Engineer to deploy their finalized models.
 
-_These roles, along with the ones covered previously, comprise some of the essential tech roles in the industry today. Each role has its unique set of responsibilities and skills required, yet they often overlap and collaborate to drive the success of the organisation's objectives. Understanding the differences and similarities between these roles is crucial for effective team building and project management in any tech-oriented organisation._
+These roles, along with the ones covered previously, comprise some of the essential tech roles in the industry today. Each role has its unique set of responsibilities and skills required, yet they often overlap and collaborate to drive the success of the organisation's objectives. Understanding the differences and similarities between these roles is crucial for effective team building and project management in any tech-oriented organisation.
 
 ### Open Standards
 
@@ -239,25 +239,25 @@ Kubernetes itself is built on a foundation of open standards and is governed by 
 
     - These standards ensure that any container engine can run any container image, and that Kubernetes can reliably manage them.
 
-    - Open Container Initiative (OCI): This is perhaps the most critical standard. It governs the specification for two core things:
+    - _Open Container Initiative (OCI):_ This is perhaps the most critical standard. It governs the specification for two core things:
 
-        - Image Format Specification: Defines how a container image must be built and packaged (e.g., Docker images are now OCI images).
+        - _Image Format Specification:_ Defines how a container image must be built and packaged (e.g., Docker images are now OCI images).
 
-        - Runtime Specification: Defines how a container runtime (like runc) must execute the container.
+        - _Runtime Specification:_ Defines how a container runtime (like runc) must execute the container.
 
-    - Container Runtime Interface (CRI): This is a Kubernetes standard. It defines the API interface between the kubelet (the node agent) and the actual container runtime (like containerd or CRI-O).
+    - _Container Runtime Interface (CRI):_ This is a Kubernetes standard. It defines the API interface between the kubelet (the node agent) and the actual container runtime (like containerd or CRI-O).
 
 - Networking and Storage
 
     - These standards ensure that networking and persistent storage solutions can be easily plugged into any Kubernetes cluster.
 
-    - Container Network Interface (CNI): This is a standard specification for writing network plugins. It ensures that various networking solutions (like Calico, Flannel, or Cilium) can be consistently integrated with Kubernetes.
+    - _Container Network Interface (CNI):_ This is a standard specification for writing network plugins. It ensures that various networking solutions (like Calico, Flannel, or Cilium) can be consistently integrated with Kubernetes.
 
-    - Container Storage Interface (CSI): This is a standard specification for exposing arbitrary storage systems (like AWS EBS, NFS, or local storage) to container orchestration systems. It allows any storage provider to create a driver that works across different cloud environments.
+    - _Container Storage Interface (CSI):_ This is a standard specification for exposing arbitrary storage systems (like AWS EBS, NFS, or local storage) to container orchestration systems. It allows any storage provider to create a driver that works across different cloud environments.
 
 - Service Mesh and Observability
 
-    - OpenTracing/OpenTelemetry (OTel): This is a standard set of APIs, libraries, and instrumentation tools for generating, collecting, and exporting telemetry data (metrics, logs, and traces). This ensures consistent observability across microservices regardless of the programming language or vendor.
+    - _OpenTracing/OpenTelemetry (OTel):_ This is a standard set of APIs, libraries, and instrumentation tools for generating, collecting, and exporting telemetry data (metrics, logs, and traces). This ensures consistent observability across microservices regardless of the programming language or vendor.
 
     - By adhering to these open standards, Kubernetes maintains its strong position as a portable and extensible platform.
 
