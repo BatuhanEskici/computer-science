@@ -178,8 +178,8 @@ This is also an important area for your studies especially with reference to the
 
 - **Their mission:** To make Cloud Native Computing, Ubiquitous
 
-![ss-24](./images/ss-24.png)
-![ss-25](./images/ss-25.png)
+![graduation](./images/graduation.png)
+![technical-oversigt-committee](./images/technical-oversigt-committee.png)
 
 **Graduated projects:**
 <https://www.cncf.io/projects/>
@@ -397,3 +397,150 @@ And made them:
 
 Docker made containers practical and accessible for developers and production systems.
 
+### Docker Desktop Installation
+
+#### Traditional Docker
+
+![traditional-docker](./images/traditional-docker.png)
+
+#### Docker Desktop
+
+![docker-desktop](./images/docker-desktop.png)
+
+`docker run -it <image-name> <default-command>`:
+
+- `-i`: Keep STDIN open to interact with the container.
+
+- `-t`: Allocate a terminal (TTY) so output looks like a normal shell.
+
+- `-it`: Combine both to run the container interactively with a terminal.
+
+![docker-run](./images/docker-run.png)
+
+`exit`: Exit from the container.
+
+`kubectl get nodes`: Queries the Kubernetes API server for a list of nodes (machines) in your cluster.
+
+- NAME: Node hostname or identifier.
+- STATUS: Node readiness (Ready / NotReady / Unknown).
+- ROLES: Node role (control-plane/master, worker, etc.).
+- AGE: How long the node has been part of the cluster.
+- VERSION: The Kubernetes version running on the node.
+
+![kubectl-get-nodes](./images/kubectl-get-nodes.png)
+
+### Container Images
+
+**Container Image:** Self contained bundle of software and dependencies.
+
+- Instead of _Docker Image_ we should use _OCI Compliant Container Image_.
+
+<https://opencontainers.org>
+
+**Container Image vs Container:** Container Image (nginx) is bundle of software, container (nginx web server) is an instance of software.
+
+**Container Registry:** <https://hub.docker.com>
+
+**Image Tag:** Used to distinguish a version of a container image.
+
+- 1.0.0
+- 2.0.0
+- ubuntu
+- aws
+- **latest:** Default tag, not the exactly latest.
+
+`docker pull <image-name>:<tag>`: Pull the image from container registry.
+
+![docker-pull](./images/docker-pull.png)
+
+To specify container registry: `docker pull docker.io/wernight/funbox:latest`
+
+![docker-pull-2](./images/docker-pull-2.png)
+
+5 layers being pulled for this image.
+
+![docker-pull-3](./images/docker-pull-3.png)
+
+5 layers are the layers that have size > 0 B.
+
+![docker-pull-4](./images/docker-pull-4.png)
+
+- A union file system essentially merges these layers into a single view as a file system, with a thin, accessible, writable layer.
+
+- So our changes will be written to this single top layer.
+
+- If we delete a file from container our change will be referenced to that layer but the file will still exists in the container.
+
+- If we run multiple containers from the same image container image, we're using space efficiently as the only layer that changes is the thin writable layer.
+
+**Digest:** A secure and unique identifier for the image
+
+`Digest:sha256:ca5c7db6c15c7628cad57dd43de8674b9dfa75303eafcd498d0bd1e673e78921`
+
+It's even possible to pull an image by its digest.
+
+But the image id differs to the digest when we actually run a docker images.
+
+- The digest is the checksum taken from a container registry and is created when an image is pushed to the registry.
+
+- The image ID, however, is a checksum based on the local container image and is a checksum of the JSON configuration used by Docker for this image.
+
+`docker manifest inspect <image-name>:` Show the manifest from a registry.
+
+![docker-manifest](./images/docker-manifest.png)
+
+`docker save <image-name> -o <file-name>`: Exports (saves) one or more Docker images from your local Docker to a tar archive.
+
+This creates a portable file that contains:
+
+- Image layers
+- Image metadata
+- Repositories info
+
+![docker-save](./images/docker-save.png)
+
+`-o funbox.tar`: -o is the short option for --output.
+
+- It tells docker save to write its output to a file instead of streaming the tar archive to standard output (stdout).
+
+- In other words, -o funbox.tar directs the program to open (create/overwrite) a file called funbox.tar and write the produced tar archive into it.
+
+- funbox.tar is a tar archive (standard Unix TAR format) that contains the saved Docker image(s).
+
+Inside you’ll typically find:
+
+- image layer tar files (each layer’s filesystem contents as a tar archive),
+
+- image configuration JSON (metadata like environment, entrypoint, created time),
+manifest.json describing which layers belong to which image(s), repositories or index mapping tags to image IDs (older formats may include this).
+
+- This archive is the portable representation of the image; `docker load -i funbox.tar` reads that file and recreates the image(s) locally.
+
+`tar xvf funbox.tar`: is telling the tar program to extract the contents of the file `funbox.tar` into the current directory.
+
+- x → extract: Take the contents of the archive and unpack them.
+
+- v → verbose: Show every file as you extract it.
+
+- f → file: The next argument is the filename of the archive.
+
+![docker-save-2](./images/docker-save-2.png)
+
+- On newer Docker versions (especially macOS Docker Desktop),
+docker save defaults to creating an OCI-compliant archive.
+
+- So instead of storing each layer as a folder with a layer.tar, it stores each layer as a blob named by its SHA digest: `blobs/sha256/<sha256-hash>`
+
+- These files are still tar layers, just not named layer.tar.
+
+- `blobs/`: Contains all image layers and config blobs.
+
+    Each blob is usually a tar file—even though it has no .tar extension.
+
+- `manifest.json`: Describes which blobs (layers) belong to the image.
+
+- `index.json`: Entry point for the OCI format — lists the top-level manifests.
+
+- `oci-layout`: Specifies the OCI version being used.
+
+![docker-manifest-2](./images/docker-manifest-2.png)
